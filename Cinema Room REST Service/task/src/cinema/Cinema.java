@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Cinema {
     @JsonProperty("total_rows")
@@ -13,24 +14,14 @@ public class Cinema {
     @JsonProperty("available_seats")
     private List<Seat> availableSeats;
 
-    public Cinema() {
-        this.totalRows = 9;
-        this.totalColumns = 9;
+    public Cinema(int totalRows, int totalColumns) {
+        this.totalRows = totalRows;
+        this.totalColumns = totalColumns;
         this.availableSeats = new ArrayList<>();
         initAvailableSeats();
 
     }
-    public void setAvailableSeats() {
 
-    }
-    public void initAvailableSeats() {
-
-        for (int i = 1; i <= totalRows; i++) {
-            for (int j = 1; j <= totalColumns; j++) {
-                availableSeats.add(new Seat(i,j));
-            }
-        }
-    }
     public int getTotalRows() {
         return totalRows;
     }
@@ -39,10 +30,23 @@ public class Cinema {
         return totalColumns;
     }
 
+    public void setAvailableSeats(List<Seat> availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
     public List<Seat> getAvailableSeats() {
         return availableSeats;
     }
 
+    public void initAvailableSeats() {
+
+        for (int i = 1; i <= totalRows; i++) {
+            for (int j = 1; j <= totalColumns; j++) {
+                availableSeats.add(new Seat(i,j));
+            }
+        }
+    }
+    @Override
     public String toString() {
         return this.totalRows + "\n" + this.totalColumns + " " + this.availableSeats;
     }

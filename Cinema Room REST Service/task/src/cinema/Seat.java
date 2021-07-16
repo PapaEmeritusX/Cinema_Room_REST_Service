@@ -1,15 +1,30 @@
 package cinema;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jdk.jfr.DataAmount;
+
+import java.util.Objects;
+
 public class Seat {
+    @JsonProperty("row")
     private int row;
+    @JsonProperty("column")
     private int column;
+    @JsonProperty("price")
     private int price;
 
+    @JsonIgnore
+    private boolean available;
 
     public Seat(int row, int column) {
         this.row = row;
         this.column = column;
-        this.price = 0;
+        this.available = true;
+        defPrice();
+    }
+    public Seat() {
+
     }
 
     public int getRow() {
@@ -32,16 +47,23 @@ public class Seat {
         return price;
     }
 
-    public void defPrice() {
-        if (this.row <= 4) {
-            this.price = 10;
-        } else {
-            this.price = 8;
-        }
-
-    }
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @JsonIgnore
+    public boolean isAvailable() {
+        return available;
+    }
+
+    @JsonIgnore
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public void defPrice() {
+
+        this.price = this.row <= 4 ? 10 : 8;
     }
 
 }

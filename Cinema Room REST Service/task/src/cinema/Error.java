@@ -1,6 +1,10 @@
 package cinema;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Error {
+
+    @JsonProperty(value = "error")
     private String error;
 
     public Error(String error) {
