@@ -351,6 +351,296 @@ files:
         };
     }
   learner_created: false
+- name: src/cinema/Seat.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import jdk.jfr.DataAmount;
+
+    import java.util.Objects;
+
+    public class Seat {
+        @JsonProperty("row")
+        private int row;
+        @JsonProperty("column")
+        private int column;
+        @JsonProperty("price")
+        private int price;
+
+        @JsonIgnore
+        private boolean available;
+
+        public Seat(int row, int column) {
+            this.row = row;
+            this.column = column;
+            this.available = true;
+            defPrice();
+        }
+        public Seat() {
+
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public void setRow(int row) {
+            this.row = row;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+
+        public void setColumn(int column) {
+            this.column = column;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        @JsonIgnore
+        public boolean isAvailable() {
+            return available;
+        }
+
+        @JsonIgnore
+        public void setAvailable(boolean available) {
+            this.available = available;
+        }
+
+        public void defPrice() {
+
+            this.price = this.row <= 4 ? 10 : 8;
+        }
+
+    }
+  learner_created: true
+- name: src/cinema/Error.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    public class Error {
+
+        @JsonProperty(value = "error")
+        private String error;
+
+        public Error(String error) {
+            this.error = error;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
+    }
+  learner_created: true
+- name: src/cinema/Purchase.java
+  visible: true
+  text: |
+    package cinema;
+
+    import java.util.UUID;
+
+    public class Purchase {
+        private String token;
+        private Seat ticket;
+
+        public Purchase(String token, Seat ticket) {
+            this.token = token;
+            this.ticket = ticket;
+        }
+
+        public Purchase() {
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public void defToken() {
+            UUID uuid = UUID.randomUUID();
+            this.token = uuid.toString();
+        }
+
+        public Seat getTicket() {
+            return ticket;
+        }
+
+        public void setTicket(Seat ticket) {
+            this.ticket = ticket;
+        }
+    }
+  learner_created: true
+- name: src/cinema/Cinema.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    import java.util.ArrayList;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import java.util.stream.Collectors;
+
+    public class Cinema {
+        @JsonProperty("total_rows")
+        private final int totalRows;
+        @JsonProperty("total_columns")
+        private final int totalColumns;
+        @JsonProperty("available_seats")
+        private List<Seat> availableSeats;
+
+        @JsonIgnore
+        private Map<String,Seat> soldTickets;
+
+        {
+            soldTickets = new HashMap<>();
+        }
+
+        public Cinema(int totalRows, int totalColumns) {
+            this.totalRows = totalRows;
+            this.totalColumns = totalColumns;
+            this.availableSeats = new ArrayList<>();
+            initAvailableSeats();
+
+        }
+
+        public int getTotalRows() {
+            return totalRows;
+        }
+
+        public int getTotalColumns() {
+            return totalColumns;
+        }
+
+        public void setAvailableSeats(List<Seat> availableSeats) {
+            this.availableSeats = availableSeats;
+        }
+
+        public List<Seat> getAvailableSeats() {
+            return availableSeats;
+        }
+
+        public void addSoldTicket(String token, Seat ticket) {
+            this.soldTickets.put(token, ticket);
+        }
+
+        public Map<String, Seat> getSoldTickets() {
+            return soldTickets;
+        }
+        public Seat getSeat(int row, int column) {
+            int index = this.totalRows * row - (this.totalColumns - column);
+            return this.availableSeats.get(index);
+        }
+
+        public void initAvailableSeats() {
+
+            for (int i = 1; i <= totalRows; i++) {
+                for (int j = 1; j <= totalColumns; j++) {
+                    availableSeats.add(new Seat(i,j));
+                }
+            }
+        }
+        @Override
+        public String toString() {
+            return this.totalRows + "\n" + this.totalColumns + " " + this.availableSeats;
+        }
+    }
+  learner_created: true
+- name: src/cinema/CinemaController.java
+  visible: true
+  text: "package cinema;\n\nimport org.springframework.http.HttpStatus;\nimport org.springframework.http.ResponseEntity;\n\
+    import org.springframework.web.bind.annotation.*;\n\nimport java.util.ArrayList;\n\
+    import java.util.List;\nimport java.util.stream.Collectors;\n\n@RestController\n\
+    public class CinemaController {\n    int row = 9;\n    int column = 9;\n\n   \
+    \ Cinema cinemaRoom = new Cinema(row, column);\n    List<Seat> seatList = cinemaRoom.getAvailableSeats();\n\
+    \n\n    @PostMapping(\"/purchase\")\n    public ResponseEntity<?> buyTicket(@RequestBody\
+    \ Seat book) {\n        int index = book.getRow() * row - (row - book.getColumn())\
+    \ - 1;\n        if (book.getRow() > 9 || book.getRow() < 0 || book.getColumn()\
+    \ > 9 || book.getColumn() < 0) {\n            return ResponseEntity\n        \
+    \            .status(HttpStatus.BAD_REQUEST)\n                    .body(new Error(\"\
+    The number of a row or a column is out of bounds!\"));\n        } else if (seatList.get(index).isAvailable())\
+    \ {\n            seatList.get(index).setAvailable(false);\n            Purchase\
+    \ ticket = new Purchase();\n            ticket.defToken();\n            ticket.setTicket(seatList.get(index));\n\
+    \            cinemaRoom.addSoldTicket(ticket.getToken(), ticket.getTicket());\n\
+    \n            return ResponseEntity\n                    .status(HttpStatus.OK)\n\
+    \                    .body(ticket);\n\n        } else {\n            return new\
+    \ ResponseEntity<>(new Error(\"The ticket has been already purchased!\"), HttpStatus.BAD_REQUEST);\n\
+    \        }\n    }\n    @PostMapping(\"/return\")\n    public ResponseEntity<?>\
+    \ returnTicket(@RequestBody Purchase ticket) {\n        if (cinemaRoom.getSoldTickets().containsKey(ticket.getToken()))\
+    \ {\n\n            ReturnedTicket returnedTicket = new ReturnedTicket();\n   \
+    \         returnedTicket.setTicket(cinemaRoom.getSoldTickets().get(ticket.getToken()));\n\
+    \n            int row = cinemaRoom.getSoldTickets().get(ticket.getToken()).getRow();\n\
+    \            int column = cinemaRoom.getSoldTickets().get(ticket.getToken()).getColumn();\n\
+    \            cinemaRoom.getSeat(row,column).setAvailable(true); // the ticket\
+    \ is available to be purchased again\n\n            cinemaRoom.getSoldTickets().remove(ticket.getToken());\
+    \ // the ticket remove from the sold\n            return ResponseEntity\n    \
+    \                .status(HttpStatus.OK).body(returnedTicket);\n        } else\
+    \ {\n            return ResponseEntity\n                    .status(HttpStatus.BAD_REQUEST).body(new\
+    \ Error(\"Wrong token!\"));\n        }\n    }\n\n//    @PostMapping(\"/purchase_test\"\
+    )\n//    public ResponseEntity<?> buyTicketTest(@RequestParam int row, @RequestParam\
+    \ int column) {\n//        int index = row * 9 - (9 - column) - 1;\n//       \
+    \ if (row > 9 || row < 0 || column > 9 || column < 0) {\n//            return\
+    \ new ResponseEntity<>(new Error(\"The number of a row or a column is out of bounds!\"\
+    ), HttpStatus.BAD_REQUEST);\n//        } else if (seatList.get(index).getPrice()\
+    \ == 0) {\n//\n//            seatList.get(index).defPrice();\n//            Seat\
+    \ purchased = seatList.get(index);\n//            return new ResponseEntity<Seat>(purchased,\
+    \ HttpStatus.OK);\n//        } else {\n//            return new ResponseEntity<>(new\
+    \ Error(\"The ticket has been already purchased!\"), HttpStatus.BAD_REQUEST);\n\
+    //        }\n//    }\n    \n    @GetMapping(\"/seats\")\n    public Cinema getCinema()\
+    \ {\n        this.cinemaRoom.setAvailableSeats(seatList.stream()\n           \
+    \     .filter(seat -> seat.isAvailable())\n                .collect(Collectors.toCollection(ArrayList::new)));\n\
+    \n        return this.cinemaRoom;\n    }\n}\n"
+  learner_created: true
+- name: src/cinema/ReturnedTicket.java
+  visible: true
+  text: |
+    package cinema;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    public class ReturnedTicket {
+        @JsonProperty(value = "returned_ticket")
+        private Seat ticket;
+
+        public Seat getTicket() {
+            return ticket;
+        }
+
+        public void setTicket(Seat ticket) {
+            this.ticket = ticket;
+        }
+    }
+  learner_created: true
+- name: src/cinema/Statistics.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/189/stages/948/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: Sat, 17 Jul 2021 19:28:25 UTC
 record: -1

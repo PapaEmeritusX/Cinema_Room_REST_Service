@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9937baa2-4b96-4ab5-a852-cb17c9cb6c92" name="Default Changelist" comment="First Commit Empty Project">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Purchase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/ReturnedTicket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Statistics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageData" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frameworkLessonHistory/storage.storageRecordIndex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/A change of plans/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/A change of plans/task-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/Take your seat/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/Take your seat/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/The statistics/task-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/The statistics/task-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/lesson-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/lesson-info.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Cinema.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/CinemaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/CinemaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Error.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Seat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Seat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/task/src/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/src/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cinema Room REST Service/task/test/CinemaTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Cinema Room REST Service/task/test/CinemaTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/course-remote-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/course-remote-info.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,6 +73,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -141,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626290362747</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="First Commit Empty Project">
+      <created>1626435897232</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1626435897232</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,11 +226,6 @@
           <url>file://$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/Main.java</url>
           <line>6</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Cinema Room REST Service/task/src/cinema/CinemaController.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
