@@ -7,7 +7,7 @@ Built on Spring, this REST service manager helps you to show the seats available
 ### *`(server.port=9090)`*
 The movie theater has 9 rows  each of 9 seats.  
 Our movie theater is managed by several endpoints that return information in JSON format.  
-```GET /seats ``` - requests and returns the information about the movie theatre.  
+* `GET /seats ` - requests and returns the information about the movie theatre.  
 ```
 {
    "total_rows":5,
@@ -31,7 +31,7 @@ Our movie theater is managed by several endpoints that return information in JSO
    ]
 }
 ```
-`POST /purchase` - requests and marks a booked ticket as purchased.  
+* `POST /purchase` - requests and marks a booked ticket as purchased.  
 The requests are passed with JSON body:  
 ```
 {
@@ -65,7 +65,7 @@ If users pass a wrong row/column number, the app responds with a 400 (***BAD_REQ
     "error": "The number of a row or a column is out of bounds!"
 }
 ```
-`POST /return` - handles requests and allow customers to refund their tickets.  
+* `POST /return` - handles requests and allow customers to refund their tickets.  
 The requsts are passed with JSON body:  
 ```
 {
@@ -89,7 +89,7 @@ If service cannot identify the ticket by the token, the program responds with a 
 }
 ```
 And the last endpoint:
-`POST /stats` - If the URL parameters contain a password key with a `super_secret` value, returns the movie theatre statistics in the following format:  
+* `POST /stats` - If the URL parameters contain a password key with a `super_secret` value, returns the movie theatre statistics in the following format:  
 ```
 {
     "current_income": 0,
