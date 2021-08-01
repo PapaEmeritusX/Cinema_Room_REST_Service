@@ -103,4 +103,5 @@ If the parameters don't contain a password key or a wrong value has been passed,
     "error": "The password is wrong!"
 }
 ## Technical Observations
-Statistics are updated each purchase directly in the endpoints instead of retrieving statistics by calculating data from data structures, though calculations are made for relatively small number of indices - 81 for each data structure.
+Statistics are updated each purchase directly in the endpoints instead of retrieving statistics by calculating data from data structures, though calculations are made for relatively small number of indices - 81 for each data structure.  
+**To test the api you can use [Postman](https://www.postman.com/)** 
